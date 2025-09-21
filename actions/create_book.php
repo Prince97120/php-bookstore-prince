@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Handle image upload
     $image_path = '';
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $upload_dir = 'uploads/';
+        $upload_dir = '../uploads/';
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $upload_path = $upload_dir . $filename;
             
             if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
-                $image_path = $upload_path;
+                $image_path = 'uploads/' . $filename;
             }
         }
     }

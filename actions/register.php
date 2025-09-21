@@ -34,9 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
     
-    // Insert new user
+    // Insert new user with hashed password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $pdo->prepare("INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)");
-    if ($stmt->execute([$name, $email, $phone, $password])) {
+    if ($stmt->execute([$name, $email, $phone, $hashed_password])) {
         $_SESSION['message'] = 'Registration successful! Please login.';
         $_SESSION['message_type'] = 'success';
         header('Location: ../index.php?page=login');

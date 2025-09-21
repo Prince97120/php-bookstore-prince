@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$book) {
         $_SESSION['message'] = 'Book not available';
         $_SESSION['message_type'] = 'danger';
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit;
     }
     
@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['message_type'] = 'success';
     }
     
-    header('Location: index.php');
+    header('Location: ../index.php');
 } else {
-    header('Location: index.php');
+    header('Location: ../index.php');
 }
 ?>

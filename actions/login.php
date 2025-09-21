@@ -14,19 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
     
-    // Check user credentials
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND password = ? AND is_active = 1");
-    $stmt->execute([$email, $password]);
+    // Check user credentials with password verification
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND is_active = 1");
+    $stmt->execute([$email]);
     $user = $stmt->fetch();
     
-    if ($user) {
+    if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_email'] = $user['email'];
         
         $_SESSION['message'] = 'Welcome back, ' . $user['name'] . '!';
         $_SESSION['message_type'] = 'success';
-        header('Location: index.php');
+        header('Location: ../index.php');
     } else {
         $_SESSION['message'] = 'Invalid email or password';
         $_SESSION['message_type'] = 'danger';
